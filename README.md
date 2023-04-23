@@ -9,6 +9,7 @@ Componentes
 El archivo de Docker Compose se compone de dos servicios :
 
 drupalunir
+
 Este servicio usa la imagen drupal:8-apache que es la versión 8 de Drupal junto con el servidor web Apache. Este servicio se daen el puerto 8080 del host y está configurado conectado al servicio de MySQL com el puerto 3306.
 
 El servicio de Drupal utiliza estos volúmenes:
