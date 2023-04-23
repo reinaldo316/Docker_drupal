@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+
+  dbmysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=drupaldb
+      - MYSQL_USER=drupaluser
+      - MYSQL_PASSWORD=drupalpass
+      - MYSQL_ROOT_PASSWORD=root
+    restart: always
+    networks:
+      - internal
+
+  drupalunir:
+    image: drupal:8-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-themes:/var/www/html/themes
+      - drupal-config:/var/www/html/sites/default
+      - drupal-sites:/var/www/html/sites
+    depends_on:
+      - dbmysql
+    environment:
+      - MYSQL_DATABASE=drupaldb
+      - MYSQL_USER=drupaluser
+      - MYSQL_PASSWORD=drupalpass
+      - MYSQL_HOST=db
+    restart: always
+    networks:
+      - internal
+      - external
+
+volumes:
+  drupal-config:
+    driver: local
+  drupal-modules:
+    driver: local
+  drupal-profiles:
+    driver: local
+  drupal-themes:
+    driver: local
+  drupal-sites:
+    driver: local
+  mysql-data:
+    driver: local
+  
+networks:
+  external:
+    driver: bridge
+  internal:
+    driver: bridge
+
+
