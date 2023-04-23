@@ -33,7 +33,7 @@ services:
       - MYSQL_DATABASE=drupaldb
       - MYSQL_USER=drupaluser
       - MYSQL_PASSWORD=drupalpass
-      - MYSQL_HOST=db
+      - MYSQL_HOST=dbmysql
     restart: always
     networks:
       - internal
